@@ -50,7 +50,7 @@ var ScrollableTabView = React.createClass({
   },
 
   componentWillReceiveProps(props) {
-    if (props.initialPage && props.initialPage !== this.state.currentPage) {
+    if (props.initialPage !== this.state.currentPage) {
       this.goToPage(props.initialPage);
     }
   },
@@ -105,7 +105,7 @@ var ScrollableTabView = React.createClass({
           scrollEnabled={!this.props.locked}
           directionalLockEnabled
           alwaysBounceVertical={false}>
-          {this._children().map((child,idx) => {
+          {this.props.children.map((child,idx) => {
             return <View
               key={child.props.tabLabel + '_' + idx}
               style={{width: this.state.container.width}}>
@@ -125,7 +125,7 @@ var ScrollableTabView = React.createClass({
            this._updateScrollValue(position + offset);
          }}
          ref={(scrollView) => { this.scrollView = scrollView }}>
-         {this._children().map((child,idx) => {
+         {this.props.children.map((child,idx) => {
            return <View
              key={child.props.tabLabel + '_' + idx}
              style={{width: this.state.container.width}}>
@@ -169,7 +169,7 @@ var ScrollableTabView = React.createClass({
   render() {
     var tabBarProps = {
       goToPage: this.goToPage,
-      tabs: this._children().map((child) => child.props.tabLabel),
+      tabs: this.props.children.map((child) => child.props.tabLabel),
       activeTab: this.state.currentPage,
       scrollValue: this.state.scrollValue,
       underlineColor : this.props.tabBarUnderlineColor,
